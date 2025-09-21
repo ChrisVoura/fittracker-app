@@ -7,7 +7,8 @@ export const COLORES = {
   fondo: '#F7F9FC',         
   texto: '#2C3E50',         
   exito: '#2ECC71',         
-  advertencia: '#F39C12',   
+  advertencia: '#F39C12',  
+  peligro: '#E74C3C', 
 };
 
 // Estilos
@@ -263,5 +264,9 @@ emptySubtitle: {
   color: '#999',
   textAlign: 'center',
   lineHeight: 20,
+},
+titleContainer:{
+  flexDirection: 'row',
+  alignItems: 'center',
 }
 });

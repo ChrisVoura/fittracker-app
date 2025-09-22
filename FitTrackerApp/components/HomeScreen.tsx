@@ -7,11 +7,10 @@ import {
   ScrollView,
   SafeAreaView,
   Alert,
-  Image,
 } from "react-native";
 import { styles, COLORES } from "../app/styles/AppStyles";
 import { useObjetivo } from "../context/ObjetivoContext";
-//import {SafeAreaView} from 'react-native-safe-area-context';
+
 
 interface Comida {
   id: number;
@@ -43,13 +42,14 @@ export const HomeScreen: React.FC = () => {
     (total, comida) => total + comida.calorias,
     0
   );
-  const filterMisComidas: Comida[] = misComidas.filter(
+    const caloriasRestantes: number = objetivo - totalMisCalorias;
+/*
+ const filterMisComidas: Comida[] = misComidas.filter(
     (comida) => comida.calorias > 300
   );
-  const caloriasRestantes: number = objetivo - totalMisCalorias;
   const promedioCalorias: number =
-    misComidas.length > 0 ? totalMisCalorias / misComidas.length : 0;
-
+  misComidas.length > 0 ? totalMisCalorias / misComidas.length : 0;
+*/
   // Función para agregar nueva comida
   const agregarComida = (): void => {
     if (totalMisCalorias > objetivo) {
@@ -101,13 +101,13 @@ export const HomeScreen: React.FC = () => {
         <View style={styles.header}>
             <Text style={styles.title}>FitTracker</Text>
           <Text style={styles.caloriesDisplay}>
-            {totalMisCalorias} / {objetivo} cal
+            {totalMisCalorias} / {objetivo > 0 ? objetivo : "0"} cal
           </Text>
           <Text style={styles.subtitle}>
             {caloriasRestantes > 0
               ? `Te faltan ${caloriasRestantes} calorías`
               : caloriasRestantes === 0
-              ? "Agrega tu objetivo de calorías"
+              ? "Configura tu objetivo en Perfil"
               : "¡Objetivo cumplido! 🎉"}
           </Text>
         </View>
@@ -119,7 +119,8 @@ export const HomeScreen: React.FC = () => {
               styles.progressBar,
               {
                 width: `${Math.min((totalMisCalorias / objetivo) * 100, 100)}%`,
-                backgroundColor: caloriasRestantes > 0 ? "#4CAF50" : "#FF6B6B",
+                backgroundColor: caloriasRestantes > 0 ? COLORES.azulOscuro : 
+                caloriasRestantes === 0 ? "#DDD" : COLORES.azulOscuro,
               },
             ]}
           />

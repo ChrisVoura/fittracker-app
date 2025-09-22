@@ -11,10 +11,13 @@ import{
 } from 'react-native';
 import {styles, COLORES } from '../app/styles/AppStyles'; 
 import { useObjetivo } from "../context/ObjetivoContext";
+
 export const ProfileScreen: React.FC = () => {
 
     //Estados para las configuraciones
     const {objetivo, setObjetivo} = useObjetivo();
+    const [objetivoInput, setObjetivoInput] = useState<string>(objetivo.toString());
+
     const [nombre, setNombre] = useState<string>('Usuario');
     const [notificaciones, setNotificaciones] = useState<boolean>(true);
     const [modoOscuro, setmodoOscuro] = useState<boolean>(false);
@@ -27,7 +30,13 @@ export const ProfileScreen: React.FC = () => {
         fechaRegistro: 'Septiembre 2025',
     };
 
-    const guardarCambios = () => {
+    const guardarObjetivo = () => {
+      //Valdiar el objetivo sea un numero
+      const nuevoObjetivo = parseInt(objetivoInput);
+      if (isNaN(nuevoObjetivo) || nuevoObjetivo <= 0) {
+          Alert.alert('Error', 'Por favor ingresa un objetivo válido (número mayor a 0)');
+      }
+      setObjetivo(nuevoObjetivo);
         Alert.alert('¡Guardado!', 'Tu perfil ha sido actualizado correctamente', [
             { text: 'OK', style: 'default' },
         ]);
@@ -53,8 +62,8 @@ export const ProfileScreen: React.FC = () => {
       <ScrollView style={styles.content}>
         
         {/* Header */}
-        <View style={[styles.header, { backgroundColor: COLORES.secundario }]}>
-          <Text style={styles.title}>👤 Mi Perfil</Text>
+        <View style={[styles.header, { backgroundColor: COLORES.celeste }]}>
+          <Text style={styles.title}>Mi Perfil</Text>
           <Text style={styles.subtitle}>Configuración y estadísticas personales</Text>
         </View>
 
@@ -73,14 +82,13 @@ export const ProfileScreen: React.FC = () => {
           <Text style={styles.inputLabel}>Objetivo diario de calorías:</Text>
           <TextInput
             style={styles.input}
-            value={objetivo.toString()}
-            onChangeText={(text) => setObjetivo(parseInt(text))}
-            placeholder="0000"
+            value={objetivoInput}
+            onChangeText={setObjetivoInput}
             keyboardType="numeric"
           />
           
-          <TouchableOpacity style={styles.addButton} onPress={guardarCambios}>
-            <Text style={styles.addButtonText}>💾 Guardar Cambios</Text>
+          <TouchableOpacity style={styles.addButton} onPress={guardarObjetivo}>
+            <Text style={styles.addButtonText}>Guardar Cambios</Text>
           </TouchableOpacity>
         </View>
 
@@ -134,7 +142,7 @@ export const ProfileScreen: React.FC = () => {
               <Switch
                 value={opcion.valor}
                 onValueChange={opcion.onChange}
-                trackColor={{ false: '#E0E0E0', true: COLORES.accent }}
+                trackColor={{ false: '#E0E0E0', true: COLORES.azulIntenzo }}
                 thumbColor={opcion.valor ? COLORES.fondo : '#f4f3f4'}
               />
             </View>
@@ -172,7 +180,6 @@ export const ProfileScreen: React.FC = () => {
           <Text style={styles.statsTitle}>Información de la App</Text>
           <Text style={styles.statsText}>
             • Versión: 1.0.0{'\n'}
-            • Desarrollado con React Native{'\n'}
             • Última actualización: Enero 2025{'\n'}
             • Política de privacidad: Tus datos se almacenan localmente
           </Text>
@@ -181,17 +188,17 @@ export const ProfileScreen: React.FC = () => {
         {/* Botones de Acción */}
         <View style={styles.statsQuickPanel}>
           <TouchableOpacity 
-            style={[styles.addButton, { backgroundColor: COLORES.texto, flex: 1, marginRight: 10 }]}
+            style={[styles.addButton, { backgroundColor: COLORES.azulOscuro, flex: 1, marginRight: 10 }]}
             onPress={() => Alert.alert('Compartir', '¡Comparte FitTracker con tus amigos!')}
           >
-            <Text style={styles.addButtonText}>🔗 Compartir App</Text>
+            <Text style={styles.addButtonText}>Compartir App</Text>
           </TouchableOpacity>
           
           <TouchableOpacity 
-            style={[styles.addButton, { backgroundColor: COLORES.secundario, flex: 1, marginLeft: 10 }]}
+            style={[styles.addButton, { backgroundColor: COLORES.turquesa, flex: 1, marginLeft: 10 }]}
             onPress={() => Alert.alert('Calificar', '¡Gracias! Tu opinión es importante')}
           >
-            <Text style={styles.addButtonText}>⭐ Calificar</Text>
+            <Text style={styles.addButtonText}>Calificar</Text>
           </TouchableOpacity>
         </View>
 

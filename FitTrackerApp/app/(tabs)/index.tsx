@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Image } from 'react-native';
@@ -7,19 +7,49 @@ import { HomeScreen } from '../../components/HomeScreen';
 import { ProfileScreen } from '../../components/ProfileScreen';
 import { StatsScreen } from '../../components/StatsScreen';
 import {ObjetivoProvider } from '../../context/ObjetivoContext';
+import { SplashScreens } from '../../components/SplashScreens';
 
 import { COLORES } from '../styles/AppStyles';
-
+import * as SplashScreen from 'expo-splash-screen';
 //Navegador de Tabs
 const Tab = createBottomTabNavigator();
 
+
+
 const App: React.FC = () => {
+  //Definicion de los estados
+  const [isloding, setIsLoading] = React.useState(true);
+  const [appIsReady, setAppIsReady] = React.useState(false);
+
+  useEffect(() => {
+    //Simular carga de datos iniciales
+    const prepareApp = async () => {
+      try{
+        await SplashScreen.preventAutoHideAsync();
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }catch(e){
+        console.warn(e);
+      }finally{
+        setAppIsReady(true);
+      }
+    };
+    prepareApp();
+  }, []);
+
+  const onSplashFinish = () => {
+    setIsLoading(false);
+  }
+
+  if (isloding || !appIsReady) {
+    return <SplashScreens onfinish={onSplashFinish}/>;
+  }
+
   return (
     <ObjetivoProvider>
       <Tab.Navigator screenOptions={{
         //Configuracion general de los tabs
         headerShown: false,
-        tabBarActiveTintColor: COLORES.primario,
+        tabBarActiveTintColor: COLORES.celeste,
         tabBarInactiveTintColor: COLORES.texto,
         tabBarStyle: {
           backgroundColor: COLORES.fondo,

@@ -33,8 +33,8 @@ return (
       <ScrollView style={styles.content}>
         
         {/* Header */}
-        <View style={[styles.header, { backgroundColor: COLORES.accent }]}>
-          <Text style={styles.title}>📊 Estadísticas</Text>
+        <View style={[styles.header, { backgroundColor: COLORES.celeste }]}>
+          <Text style={styles.title}>Estadísticas</Text>
           <Text style={styles.subtitle}>Tu progreso semanal</Text>
         </View>
 

@@ -9,6 +9,12 @@ export const COLORES = {
   exito: '#2ECC71',         
   advertencia: '#F39C12',  
   peligro: '#E74C3C', 
+  gris: '#63686bff',
+  celeste : '#158CBC',
+  azulIntenzo: '#0b61c5',
+  turquesa: '#31b397',
+  azulOscuro: '#182a5c',
+  verde: '#88cc4b'
 };
 
 // Estilos
@@ -23,7 +29,7 @@ export const styles = StyleSheet.create({
   },
   header: {
     // background: 'linear-gradient(135deg, ' + COLORES.primario + ' 0%,' + COLORES.accent + ' 100%)',
-    backgroundColor: COLORES.primario,
+    backgroundColor: COLORES.celeste,
     padding: 20,
     borderRadius: 12,
     marginBottom: 20,
@@ -93,7 +99,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
   addButton: {
-    backgroundColor: COLORES.secundario,
+    backgroundColor: COLORES.turquesa,
     padding: 12,
     borderRadius: 6,
     alignItems: 'center',
@@ -222,8 +228,8 @@ categoryButton: {
   borderColor: '#E9ECEF',
 },
 selectedButton: {
-  backgroundColor: COLORES.secundario,
-  borderColor:  COLORES.secundario,
+  backgroundColor: COLORES.turquesa,
+  borderColor:  COLORES.turquesa,
 },
 buttonText: {
   fontSize: 14,
